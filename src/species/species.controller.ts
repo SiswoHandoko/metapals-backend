@@ -22,9 +22,11 @@ export class SpeciesController {
     // Bundling Params
     const paramFilter = {
       page: parseInt(query.page),
-      perPage: parseInt(query.perPage)
+      perPage: parseInt(query.perPage),
+      field: query.field ? query.field : null,
+      value: query.value ? query.value : null
     }
-    
+
     const species = await this.speciesService.findAll(paramFilter);
     
     // transform data format

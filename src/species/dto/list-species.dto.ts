@@ -1,4 +1,4 @@
-import { IsNumberString } from 'class-validator';
+import { IsNumberString, IsOptional, IsString } from 'class-validator';
 
 export class ListSpeciesQueryDto {
   @IsNumberString()
@@ -6,4 +6,12 @@ export class ListSpeciesQueryDto {
 
   @IsNumberString()
   perPage: string;
+
+  @IsString()
+  @IsOptional()
+  field?: string;
+
+  @IsString()
+  @IsOptional()
+  value?: string;
 }

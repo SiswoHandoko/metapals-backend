@@ -25,6 +25,26 @@ export class SpeciesService {
   async findAll(paramFilter:ParamFilter): Promise<{ data: Species[]; total: number }> {
     const offset = (paramFilter.page - 1) * paramFilter.perPage;
 
+    // Parse Field and Value to be Advance Filter
+    if(paramFilter.field && paramFilter.value){
+      switch (paramFilter.field) {
+        case 'Family Name':
+         
+          break;
+        case 'Common Name':
+          
+          break;
+        case 'Native Habitat':
+          
+          break;
+        case 'Preferred Climate Zones':
+          
+          break;
+        default:
+          break;
+      }
+    }
+
     // using promise all for make code run concurrent/pararell
     const [data, total] = await Promise.all([
       this.speciesModel.findAll({ limit: paramFilter.perPage, offset }),

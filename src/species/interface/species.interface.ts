@@ -20,5 +20,7 @@ export interface TransformedData {
 
 export interface ParamFilter {
     page: number,
-    perPage: number
+    perPage: number,
+    field: string,
+    value: string,
 }

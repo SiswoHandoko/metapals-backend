@@ -86,7 +86,14 @@ describe('SpeciesService', () => {
 
   describe('findAll()', () => {
     it('should return an array of species', async () => {
-      const species = await service.findAll({page:1,perPage:10});
+      const species = await service.findAll(
+        { 
+          page: 1, 
+          perPage: 10, 
+          field: 'Family Name', 
+          value: 'Caricaceae'
+        }
+      );
       expect(species.data).toEqual(speciesArray);
       expect(species.total).toEqual(speciesArray.length);
     });
