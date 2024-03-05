@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateSpeciesDto } from './dto/create-species.dto';
 import { Species } from './models/species.model';
+import { ParamFilter } from './interface/species.interface';
 
 @Injectable()
 export class SpeciesService {
@@ -21,8 +22,16 @@ export class SpeciesService {
     });
   }
 
-  async findAll(): Promise<Species[]> {
-    return this.speciesModel.findAll();
+  async findAll(paramFilter:ParamFilter): Promise<{ data: Species[]; total: number }> {
+    const offset = (paramFilter.page - 1) * paramFilter.perPage;
+
+    // using promise all for make code run concurrent/pararell
+    const [data, total] = await Promise.all([
+      this.speciesModel.findAll({ limit: paramFilter.perPage, offset }),
+      this.speciesModel.count()
+    ]);
+
+    return { data, total };
   }
 
   findOne(id: string): Promise<Species> {

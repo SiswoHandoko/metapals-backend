@@ -28,24 +28,33 @@ describe('SpeciesController', () => {
               .mockImplementation((species: CreateSpeciesDto) =>
                 Promise.resolve({ id: '1', ...species }),
               ),
-            findAll: jest.fn().mockResolvedValue([
-              {
-                familyNameId: 1,
-                nativeHabitatId: 1,
-                name: 'any name',
-                commonName: 'any common name',
-                tag: 'plant',
-                image: 'https://loremflickr.com/640/480?lock=2874895916597248',
-              },
-              {
-                familyNameId: 2,
-                nativeHabitatId: 2,
-                name: 'any name',
-                commonName: 'any common name',
-                tag: 'plant',
-                image: 'https://loremflickr.com/640/480?lock=2874895916597248',
-              },
-            ]),
+            findAll: jest.fn().mockResolvedValue({
+              data:[
+                {
+                  dataValues: {
+                    id: 1,
+                    familyNameId: 1,
+                    nativeHabitatId: 1,
+                    name: 'any name',
+                    commonName: 'any common name',
+                    tag: 'plant',
+                    image: 'https://loremflickr.com/640/480?lock=2874895916597248',
+                  },
+                },
+                {
+                  dataValues: {
+                    id: 2,
+                    familyNameId: 2,
+                    nativeHabitatId: 2,
+                    name: 'any name',
+                    commonName: 'any common name',
+                    tag: 'plant',
+                    image: 'https://loremflickr.com/640/480?lock=2874895916597248',
+                  },
+                },
+              ],
+              total:2
+            }),
             findOne: jest.fn().mockImplementation((id: string) =>
               Promise.resolve({
                 familyNameId: 1,
@@ -83,8 +92,8 @@ describe('SpeciesController', () => {
   });
 
   describe('findAll()', () => {
-    it('should find all species ', () => {
-      speciesController.findAll();
+    it('should find all species ', async () => {
+      await speciesController.findAll({page:'1',perPage:'10'});
       expect(speciesService.findAll).toHaveBeenCalled();
     });
   });

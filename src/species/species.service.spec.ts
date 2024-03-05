@@ -43,6 +43,7 @@ describe('SpeciesService', () => {
           provide: getModelToken(Species),
           useValue: {
             findAll: jest.fn(() => speciesArray),
+            count: jest.fn(() => speciesArray.length),
             findOne: jest.fn(),
             create: jest.fn(() => oneSpecies),
             remove: jest.fn(),
@@ -85,8 +86,9 @@ describe('SpeciesService', () => {
 
   describe('findAll()', () => {
     it('should return an array of species', async () => {
-      const species = await service.findAll();
-      expect(species).toEqual(speciesArray);
+      const species = await service.findAll({page:1,perPage:10});
+      expect(species.data).toEqual(speciesArray);
+      expect(species.total).toEqual(speciesArray.length);
     });
   });
 
