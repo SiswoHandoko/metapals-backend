@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { Species } from './species/models/species.model';
 import { SpeciesModule } from './species/species.module';
+import { FieldCategoriesModule } from './field-categories/field-categories.module';
+import { FieldCategories } from './field-categories/models/field_categories.model';
 
 @Module({
   imports: [
@@ -14,9 +16,10 @@ import { SpeciesModule } from './species/species.module';
       username: process.env.POSTGRE_USER || 'postgres',
       password: process.env.POSTGRE_PASS || '',
       database: process.env.POSTGRE_DB_NAME || 'metapals',
-      models: [Species],
+      models: [Species,FieldCategories],
     }),
-    SpeciesModule
+    SpeciesModule,
+    FieldCategoriesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
