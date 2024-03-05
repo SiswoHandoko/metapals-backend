@@ -6,6 +6,8 @@ import { Species } from './species/models/species.model';
 import { SpeciesModule } from './species/species.module';
 import { FieldCategoriesModule } from './field-categories/field-categories.module';
 import { FieldCategories } from './field-categories/models/field_categories.model';
+import { FieldsModule } from './fields/fields.module';
+import { Fields } from './fields/models/fields.model';
 
 @Module({
   imports: [
@@ -16,10 +18,11 @@ import { FieldCategories } from './field-categories/models/field_categories.mode
       username: process.env.POSTGRE_USER || 'postgres',
       password: process.env.POSTGRE_PASS || '',
       database: process.env.POSTGRE_DB_NAME || 'metapals',
-      models: [Species,FieldCategories],
+      models: [Species,FieldCategories,Fields],
     }),
     SpeciesModule,
     FieldCategoriesModule,
+    FieldsModule
   ],
   controllers: [AppController],
   providers: [AppService],
