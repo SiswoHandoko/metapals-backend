@@ -58,8 +58,15 @@ describe('ValueServices', () => {
 
   describe('findAll()', () => {
     it('should return an array of fields', async () => {
-      const fields = await service.findAll({fieldId:'1'});
-      expect(fields).toEqual(fieldsArray);
+      const fields1 = await service.findAll({fieldId:'1'});
+      const fields2 = await service.findAll({fieldId:'2'});
+      const fields3 = await service.findAll({fieldId:'3'});
+      const fields4 = await service.findAll({fieldId:'4'});
+      
+      expect(fields1).toEqual(fieldsArray);
+      expect(fields2).toEqual([]);
+      expect(fields3).toEqual(fieldsArray);
+      expect(fields4).toEqual(fieldsArray);
     });
   });
 });
