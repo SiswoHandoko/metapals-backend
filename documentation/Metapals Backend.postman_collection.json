@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "8736ac93-04fe-4642-bbcf-5e0357ba496a",
+		"name": "Metapals Backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10575465"
+	},
+	"item": [
+		{
+			"name": "Get Species",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/species?page=1&perPage=10&fieldId=1&valueId=2&search=a&sortBy=name",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"species"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "perPage",
+							"value": "10"
+						},
+						{
+							"key": "fieldId",
+							"value": "1"
+						},
+						{
+							"key": "valueId",
+							"value": "2",
+							"description": "Required if fieldId not 2"
+						},
+						{
+							"key": "value",
+							"value": "keira",
+							"description": "Required if fieldId is 2",
+							"disabled": true
+						},
+						{
+							"key": "search",
+							"value": "a",
+							"description": "Optional"
+						},
+						{
+							"key": "sortBy",
+							"value": "name",
+							"description": "Optional"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Fields Categories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/field-categories",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"field-categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Fields",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/fields?fieldCategoryId=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"fields"
+					],
+					"query": [
+						{
+							"key": "fieldCategoryId",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Values",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/values?fieldId=4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"values"
+					],
+					"query": [
+						{
+							"key": "fieldId",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
