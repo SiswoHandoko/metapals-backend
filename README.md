@@ -88,7 +88,7 @@ metapals.sql
 ```
 
 ## Benchmark API and Stress Test API
-use this command if you want to benchmarking the /v1/species list api you will get request persecond and average response time 
+use this command if you want to benchmarking the /v1/species list api you will get request persecond and average response time but dont forget to run your app first before run this command
 ```bash
 node .\stressTest.js
 ```
