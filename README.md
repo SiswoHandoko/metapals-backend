@@ -113,3 +113,29 @@ $ docker build -t metapals-app .
 $ docker run -p 3000:3000 metapals-app
 ```
 
+## API Example 
+I put 1 of API Example for this Repo for get species by advance filter
+```bash
+http://localhost:3000/v1/species?page=1&perPage=10&fieldId=1&valueId=2&search=a&sortBy=name
+
+{
+    "page": "1",
+    "perPage": "10",
+    "meta": "",
+    "total": 75,
+    "data": [
+        {
+            "id": 420,
+            "familyNameId": 2,
+            "nativeHabitatId": 4,
+            "name": "Alberta Johns",
+            "commonName": "{Lamont,Nico,Volkman}",
+            "tag": "plant",
+            "image": "https://loremflickr.com/640/480?lock=4972014819344384",
+            "createdAt": "2024-03-05T07:25:29.163Z",
+            "updatedAt": "2024-03-05T07:25:29.163Z"
+        }
+    ]
+}
+```
+
