@@ -1,35 +1,57 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
-
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+I implemented this service using [Nest](https://github.com/nestjs/nest) i am use this for POC for handle performance issue on [NPARKS](https://www.nparks.gov.sg/florafaunaweb/species-search) web and I applied this service with several design patterns
+- Dependency Injection and decorators
+- Versioning API for scalable Development on Future
+- Concurrent/Pararel Process on code for make better response time
+- CQRS (Command Query Responsibility Segregation) is a design pattern that separates write operations (commands) from read operations (queries) in applications instead of use cache like redis i prefer use cqrs for this issue.
+- Rate Limiter for maintain server performance (i set 1000 request per 1 minutes)
+- Database Indexing for all Query (I asume the issue is from query locking actually so i put some indexing for POC test)
+- Stress Test Sample for Benchmarking My API
+- DockerFile for Production Mode Ready
+- Unit Testing for Production Mode Ready
+
+# Database Design
+![alt text](https://github.com/SiswoHandoko/metapals-backend/blob/main/documentation/nparks.jpg?raw=true)
+
+This Database Design is for POC only and replicate process from nparks web. 
+Explanation :
+- Table field_categories and fields is for clasification dropdown on filter modal 
+- Table species is a species table wich will contain plant list or animal list in future
+- Table native_habitats and family_names is table for relation 1 to many to species
+- Table preferred_climate_zones is table many to many to species 
+- Column commonName is contain array value for handle dynamic value
+
+so basiccaly i try to make any representative case for any table relation from 1-n, n-n, and even dynamic value on field for future proof
 
 ## Installation
 
 ```bash
 $ npm install
+```
+
+## Create .env File (example only)
+```bash
+# ENV TYPE
+NODE_ENV=development
+
+# DIALECT OR TYPE OF DB CONNECTION
+POSTGRE_DIALECT=postgres
+
+# MASTER CONNECTION FOR CREATE/UPDATE/DELETE OPERATION QUERY
+POSTGRE_PORT_MASTER=5432
+POSTGRE_HOST_MASTER=localhost
+POSTGRE_USER_MASTER=postgres
+POSTGRE_PASS_MASTER=
+POSTGRE_DB_MASTER=metapals
+
+# SLAVE CONNECTION ONLY FOR SELECT OPERATION QUERY
+POSTGRE_PORT_SLAVE_0=5432
+POSTGRE_HOST_SLAVE_0=localhost
+POSTGRE_USER_SLAVE_0=postgres
+POSTGRE_PASS_SLAVE_0=
+POSTGRE_DB_SLAVE_0=metapals
 ```
 
 ## Running the app
@@ -40,34 +62,54 @@ $ npm run start
 
 # watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+Runs the app in the development mode
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
+I put Postman File on documentation folder on root directory
+```bash
+Metapals Backend.postman_collection.json
+```
+
+## Database Migration (PostgreSQL)
+
+I create Migration and seeder for testing and POC the API performance you can check this command for running on local
+```bash
+# migration up all table
+$ npx sequelize-cli db:migrate
+
+# seed the data for login
+$ npx sequelize-cli db:seed:all
+```
+instead of run migration on local you can import .sql too i put .sql file on folder documentation on root directory
+```bash
+metapals.sql
+```
+
+## Benchmark API and Stress Test API
+use this command if you want to benchmarking the /v1/species list api you will get request persecond and average response time 
+```bash
+node .\stressTest.js
+```
+
+## Unit Test Command
+use this command if you want to show Unit Test Coverage for all module it will be show the report coverage test from the code
 ```bash
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
+# test show coverage
 $ npm run test:cov
 ```
 
-## Support
+## Docker Build Production Ready
+I put Dockerfile too for deployment production ready on future you can build the app use this command 
+```bash
+# Build
+$ docker build -t metapals-app .
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+# Run Docker image
+$ docker run -p 3000:3000 metapals-app
+```
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
