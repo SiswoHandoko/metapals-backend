@@ -1,9 +1,10 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards, ValidationPipe } from '@nestjs/common';
 import { CreateSpeciesDto } from './dto/create-species.dto';
 import { Species } from './models/species.model';
 import { SpeciesService } from './species.service';
 import { ListSpeciesQueryDto } from './dto/list-species.dto';
 import { TransformedData } from './interface/species.interface';
+import { ThrottlerGuard } from '@nestjs/throttler';
 
 @Controller('species')
 export class SpeciesController {
@@ -16,6 +17,7 @@ export class SpeciesController {
     return this.speciesService.create(createSpeciesDto);
   }
 
+  @UseGuards(ThrottlerGuard) // use rate limiter 
   @Get()
   async findAll(@Query() query: ListSpeciesQueryDto): Promise<TransformedData> {
     
