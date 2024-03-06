@@ -29,9 +29,10 @@ export class SpeciesService {
     const offset = (paramFilter.page - 1) * paramFilter.perPage;
 
     let modelInclude;
-    let where;
+    let where={};
 
     if(paramFilter.search){
+      console.log(1)
        where = {
         [Op.or]: [
           {
@@ -56,7 +57,6 @@ export class SpeciesService {
             }
           }];
 
-          where = {};
           break;
         case '2': // ansuming id 2 is always "Common Name" and cannot be changes by user/app
           modelInclude = []; // we use param value on here
@@ -75,7 +75,6 @@ export class SpeciesService {
             }
           }];
           
-          where = {};
           break;
         case '4': // ansuming id 4 is always "Preferred Climate" Zones and cannot be changes by user/app
           modelInclude = [{
@@ -87,15 +86,13 @@ export class SpeciesService {
             }
           }];
 
-          where = {};
           break;
         default:  // we can dynamically add more clasification on future with this schema
           modelInclude = [];
-          where = {};
           break;
       }
     }
-
+    console.log(where)
     // using promise all for make code run concurrent/pararell
     const [data, total] = await Promise.all([
       this.speciesModel.findAll({
