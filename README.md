@@ -113,11 +113,11 @@ $ docker build -t metapals-app .
 $ docker run -p 3000:3000 metapals-app
 ```
 
-## API Example 
-I put 1 of API Example for this Repo for get species by advance filter
-Request
+## API Example Main Species List
+I put API Example for this Repo for get species by advance filter
+Request Species List:
 ```bash
-http://localhost:3000/v1/species?page=1&perPage=10&fieldId=1&valueId=2&search=a&sortBy=name
+http://localhost:3000/v1/species?page=1&perPage=10&fieldId=1&value=&valueId=2&search=a&sortBy=name
 
 Parameter
 page:1 (mandatory)
@@ -129,7 +129,7 @@ search:a (Optional)
 sortBy:name (Optional)
 ```
 
-Response :
+Response Species List:
 ```bash
 {
     "page": "1",
@@ -151,4 +151,90 @@ Response :
     ]
 }
 ```
+
+## API Example For Filter Dropdown on Modal
+Request Field Categories:
+```bash
+http://localhost:3000/v1/field-categories
+```
+
+Response Field Categories:
+```bash
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Name",
+            "createdAt": "2024-03-05T07:25:27.755Z",
+            "updatedAt": "2024-03-05T07:25:27.755Z"
+        },
+        {
+            "id": 2,
+            "name": "Biogeography",
+            "createdAt": "2024-03-05T07:25:27.755Z",
+            "updatedAt": "2024-03-05T07:25:27.755Z"
+        }
+    ]
+}
+```
+
+Request Fields by fieldCategoryID:
+```bash
+http://localhost:3000/v1/fields?fieldCategoryId=2
+```
+
+Response Fields by fieldCategoryID:
+```bash
+{
+    "data": [
+        {
+            "id": 3,
+            "fieldCategoryId": 2,
+            "name": "Native Habitat",
+            "createdAt": "2024-03-05T07:25:27.763Z",
+            "updatedAt": "2024-03-05T07:25:27.763Z"
+        },
+        {
+            "id": 4,
+            "fieldCategoryId": 2,
+            "name": "Preferred Climate Zones",
+            "createdAt": "2024-03-05T07:25:27.763Z",
+            "updatedAt": "2024-03-05T07:25:27.763Z"
+        }
+    ]
+}
+```
+
+
+Request Values by fieldID:
+```bash
+http://localhost:3000/v1/values?fieldId=4
+```
+
+Response Values by fieldID:
+```bash
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Desert / Arid",
+            "createdAt": "2024-03-05T07:25:27.781Z",
+            "updatedAt": "2024-03-05T07:25:27.781Z"
+        },
+        {
+            "id": 2,
+            "name": "Highland / Montane",
+            "createdAt": "2024-03-05T07:25:27.781Z",
+            "updatedAt": "2024-03-05T07:25:27.781Z"
+        },
+        {
+            "id": 3,
+            "name": "Mediterranean",
+            "createdAt": "2024-03-05T07:25:27.781Z",
+            "updatedAt": "2024-03-05T07:25:27.781Z"
+        }
+    ]
+}
+```
+
 
