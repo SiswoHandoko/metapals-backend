@@ -32,7 +32,6 @@ export class SpeciesService {
     let where={};
 
     if(paramFilter.search){
-      console.log(1)
        where = {
         [Op.or]: [
           {
@@ -92,7 +91,7 @@ export class SpeciesService {
           break;
       }
     }
-    console.log(where)
+    
     // using promise all for make code run concurrent/pararell
     const [data, total] = await Promise.all([
       this.speciesModel.findAll({
