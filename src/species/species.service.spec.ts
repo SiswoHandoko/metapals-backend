@@ -86,16 +86,70 @@ describe('SpeciesService', () => {
 
   describe('findAll()', () => {
     it('should return an array of species', async () => {
-      const species = await service.findAll(
+      const species1 = await service.findAll(
         { 
           page: 1, 
           perPage: 10, 
-          field: 'Family Name', 
-          value: 'Caricaceae'
+          fieldId: '1', 
+          valueId: '2',
+          search: 'any'
         }
       );
-      expect(species.data).toEqual(speciesArray);
-      expect(species.total).toEqual(speciesArray.length);
+
+      const species2 = await service.findAll(
+        { 
+          page: 1, 
+          perPage: 10, 
+          fieldId: '2', 
+          value: 'any',
+          search: 'any'
+        }
+      );
+      
+      const species3 = await service.findAll(
+        { 
+          page: 1, 
+          perPage: 10, 
+          fieldId: '3', 
+          valueId: '2',
+          search: 'any'
+        }
+      );
+
+      const species4 = await service.findAll(
+        { 
+          page: 1, 
+          perPage: 10, 
+          fieldId: '4', 
+          valueId: '2',
+          search: 'any'
+        }
+      );
+
+      const speciesDefault = await service.findAll(
+        { 
+          page: 1, 
+          perPage: 10, 
+          fieldId: 'any', 
+          valueId: '2',
+          search: 'any'
+        }
+      );
+
+      expect(species1.data).toEqual(speciesArray);
+      expect(species1.total).toEqual(speciesArray.length);
+
+      expect(species2.data).toEqual(speciesArray);
+      expect(species2.total).toEqual(speciesArray.length);
+
+      expect(species3.data).toEqual(speciesArray);
+      expect(species3.total).toEqual(speciesArray.length);
+
+      expect(species4.data).toEqual(speciesArray);
+      expect(species4.total).toEqual(speciesArray.length);
+
+      expect(speciesDefault.data).toEqual(speciesArray);
+      expect(speciesDefault.total).toEqual(speciesArray.length);
     });
   });
 

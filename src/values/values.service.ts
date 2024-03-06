@@ -30,6 +30,7 @@ export class ValueServices {
       data = await this.preferredClimateZonesModel.findAll();
         break;
       default:  // we can dynamically add more clasification on future with this schema
+        data = []; 
         break;
     }
     return data;

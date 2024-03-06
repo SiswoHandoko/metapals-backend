@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
-import { Column, CreatedAt, DataType, Model, Table, UpdatedAt } from 'sequelize-typescript';
+import { Column, CreatedAt, DataType, HasMany, Model, Table, UpdatedAt } from 'sequelize-typescript';
+import { SpeciesPreferredClimateZones } from './species_preferred_climate_zones.model';
 
 @Table({ tableName: 'preferred_climate_zones' })
 export class PreferredClimateZones extends Model {
@@ -35,6 +36,11 @@ export class PreferredClimateZones extends Model {
   })
   updatedAt: Date;
 
-  static associate(models) {
-  }
+  //Association
+  @HasMany(() => SpeciesPreferredClimateZones, {
+    foreignKey: 'preferredClimateZoneId',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
+  speciesPreferredClimateZones: SpeciesPreferredClimateZones[];
 }

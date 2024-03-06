@@ -12,6 +12,7 @@ import { ValuesModule } from './values/values.module';
 import { FamilyNames } from './values/models/family_names.model';
 import { NativeHabitats } from './values/models/native_habitats.model';
 import { PreferredClimateZones } from './values/models/preferred_climate_zones.model';
+import { SpeciesPreferredClimateZones } from './values/models/species_preferred_climate_zones.model';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import { PreferredClimateZones } from './values/models/preferred_climate_zones.m
       username: process.env.POSTGRE_USER || 'postgres',
       password: process.env.POSTGRE_PASS || '',
       database: process.env.POSTGRE_DB_NAME || 'metapals',
-      models: [Species,FieldCategories,Fields,FamilyNames,NativeHabitats,PreferredClimateZones],
+      models: [Species,FieldCategories,Fields,FamilyNames,NativeHabitats,PreferredClimateZones,SpeciesPreferredClimateZones],
     }),
     SpeciesModule,
     FieldCategoriesModule,

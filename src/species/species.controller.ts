@@ -23,8 +23,10 @@ export class SpeciesController {
     const paramFilter = {
       page: parseInt(query.page),
       perPage: parseInt(query.perPage),
-      field: query.field ? query.field : null,
-      value: query.value ? query.value : null
+      fieldId: query.fieldId ? query.fieldId : null,
+      valueId: query.valueId ? query.valueId : null,
+      value: query.value ? query.value : null,
+      search: query.search ? query.search : null,
     }
 
     const species = await this.speciesService.findAll(paramFilter);

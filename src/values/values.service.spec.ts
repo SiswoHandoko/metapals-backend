@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { NativeHabitats } from './models/native_habitats.model';
-import {  ValueServices } from './values.service';
+import { ValueServices } from './values.service';
 import { getModelToken } from '@nestjs/sequelize';
 import { FamilyNames } from './models/family_names.model';
 import { PreferredClimateZones } from './models/preferred_climate_zones.model';
@@ -62,11 +62,13 @@ describe('ValueServices', () => {
       const fields2 = await service.findAll({fieldId:'2'});
       const fields3 = await service.findAll({fieldId:'3'});
       const fields4 = await service.findAll({fieldId:'4'});
+      const fieldsDefault = await service.findAll({fieldId:'any'});
       
       expect(fields1).toEqual(fieldsArray);
       expect(fields2).toEqual([]);
       expect(fields3).toEqual(fieldsArray);
       expect(fields4).toEqual(fieldsArray);
+      expect(fieldsDefault).toEqual([]);
     });
   });
 });

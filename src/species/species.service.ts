@@ -3,12 +3,15 @@ import { InjectModel } from '@nestjs/sequelize';
 import { CreateSpeciesDto } from './dto/create-species.dto';
 import { Species } from './models/species.model';
 import { ParamFilter } from './interface/species.interface';
+import { FamilyNames } from '../values/models/family_names.model';
+import { NativeHabitats } from '../values/models/native_habitats.model';
+import { SpeciesPreferredClimateZones } from '../values/models/species_preferred_climate_zones.model';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class SpeciesService {
   constructor(
-    @InjectModel(Species)
-    private readonly speciesModel: typeof Species,
+    @InjectModel(Species) private readonly speciesModel: typeof Species,
   ) {}
 
   create(createSpeciesDto: CreateSpeciesDto): Promise<Species> {
@@ -25,30 +28,87 @@ export class SpeciesService {
   async findAll(paramFilter:ParamFilter): Promise<{ data: Species[]; total: number }> {
     const offset = (paramFilter.page - 1) * paramFilter.perPage;
 
+    let modelInclude;
+    let where;
+
+    if(paramFilter.search){
+       where = {
+        [Op.or]: [
+          {
+            name: {
+              [Op.iLike]: `%${paramFilter.search}%`,
+            },
+          }
+        ],
+      }
+    }
+
     // Parse Field and Value to be Advance Filter
-    if(paramFilter.field && paramFilter.value){
-      switch (paramFilter.field) {
-        case 'Family Name':
-         
+    if(paramFilter.fieldId && (paramFilter.valueId || paramFilter.value)){
+      switch (paramFilter.fieldId) {
+        case '1': // ansuming id 1 is always "Family Name" and cannot be changes by user/app
+          modelInclude = [{
+            model: FamilyNames,
+            as: 'familyName',
+            attributes: ['id', 'name'],
+            where: {
+              id: paramFilter.valueId 
+            }
+          }];
+
+          where = {};
           break;
-        case 'Common Name':
+        case '2': // ansuming id 2 is always "Common Name" and cannot be changes by user/app
+          modelInclude = []; // we use param value on here
           
+          where[Op.and] = {
+            commonName: { [Op.iLike]: `%${paramFilter.value}%` }, 
+          };
           break;
-        case 'Native Habitat':
+        case '3': // ansuming id 3 is always "Native Habitat" and cannot be changes by user/app
+          modelInclude = [{
+            model: NativeHabitats,
+            as: 'nativeHabitat',
+            attributes: ['id', 'name'],
+            where: {
+              id: paramFilter.valueId 
+            }
+          }];
           
+          where = {};
           break;
-        case 'Preferred Climate Zones':
-          
+        case '4': // ansuming id 4 is always "Preferred Climate" Zones and cannot be changes by user/app
+          modelInclude = [{
+            model: SpeciesPreferredClimateZones,
+            as: 'speciesPreferredClimateZones',
+            attributes: ['id', 'species_id', 'preferred_climate_zone_id'],
+            where: {
+              preferredClimateZoneId: paramFilter.valueId 
+            }
+          }];
+
+          where = {};
           break;
-        default:
+        default:  // we can dynamically add more clasification on future with this schema
+          modelInclude = [];
+          where = {};
           break;
       }
     }
 
     // using promise all for make code run concurrent/pararell
     const [data, total] = await Promise.all([
-      this.speciesModel.findAll({ limit: paramFilter.perPage, offset }),
-      this.speciesModel.count()
+      this.speciesModel.findAll({
+          limit: paramFilter.perPage, 
+          offset,
+          include: modelInclude,
+          where: where
+        }),
+      this.speciesModel.count({
+        include: modelInclude,
+        where: where,
+        distinct: true,
+      })
     ]);
 
     return { data, total };

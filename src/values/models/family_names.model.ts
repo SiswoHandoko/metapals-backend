@@ -1,5 +1,6 @@
 import { Sequelize } from 'sequelize';
-import { Column, CreatedAt, DataType, Model, Table, UpdatedAt } from 'sequelize-typescript';
+import { Column, CreatedAt, DataType, HasMany, Model, Table, UpdatedAt } from 'sequelize-typescript';
+import { Species } from '../../species/models/species.model';
 
 @Table({ tableName: 'family_names' })
 export class FamilyNames extends Model {
@@ -35,6 +36,11 @@ export class FamilyNames extends Model {
   })
   updatedAt: Date;
 
-  static associate(models) {
-  }
+  //Association
+  @HasMany(() => Species, {
+    foreignKey: 'familyNameId',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
+  species: Species[];
 }

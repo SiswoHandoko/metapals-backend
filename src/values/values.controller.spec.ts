@@ -39,6 +39,7 @@ describe('ValuesController', () => {
   describe('findAll()', () => {
     it('should find all fields ', () => {
       valuesController.findAll({fieldId:'1'});
+      valuesController.findAll({fieldId:null});
       expect(valueServices.findAll).toHaveBeenCalled();
     });
   });

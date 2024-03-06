@@ -7,11 +7,19 @@ export class ListSpeciesQueryDto {
   @IsNumberString()
   perPage: string;
 
-  @IsString()
+  @IsNumberString()
   @IsOptional()
-  field?: string;
+  fieldId?: string;
+
+  @IsNumberString()
+  @IsOptional()
+  valueId?: string;
 
   @IsString()
   @IsOptional()
   value?: string;
+
+  @IsString()
+  @IsOptional()
+  search?: string;
 }
