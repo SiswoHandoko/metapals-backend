@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 // API endpoint to test
-const apiUrl = 'http://localhost:3000/species?page=1&perPage=10&fieldId=1&valueId=2&search=a';
+const apiUrl = 'http://localhost:3000/v1/species?page=1&perPage=10&fieldId=1&valueId=2&search=a';
 
 // Number of requests to send per second
 const requestsPerSecond = 50;
