@@ -112,7 +112,8 @@ describe('SpeciesService', () => {
           perPage: 10, 
           fieldId: '3', 
           valueId: '2',
-          search: 'any'
+          search: 'any',
+          sortBy: 'any'
         }
       );
 
@@ -122,7 +123,8 @@ describe('SpeciesService', () => {
           perPage: 10, 
           fieldId: '4', 
           valueId: '2',
-          search: 'any'
+          search: 'any',
+          sortBy: 'commonName'
         }
       );
 
@@ -132,7 +134,8 @@ describe('SpeciesService', () => {
           perPage: 10, 
           fieldId: 'any', 
           valueId: '2',
-          search: 'any'
+          search: 'any',
+          sortBy: 'name'
         }
       );
 

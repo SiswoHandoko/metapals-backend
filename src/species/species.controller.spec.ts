@@ -93,8 +93,8 @@ describe('SpeciesController', () => {
 
   describe('findAll()', () => {
     it('should find all species ', async () => {
-      await speciesController.findAll({page:'1',perPage:'10',fieldId:'2',valueId:'2',value:'any',search:'any'});
-      await speciesController.findAll({page:'1',perPage:'10',fieldId:null,valueId:null,value:null,search:null});
+      await speciesController.findAll({page:'1',perPage:'10',fieldId:'2',valueId:'2',value:'any',search:'any', sortBy:'any'});
+      await speciesController.findAll({page:'1',perPage:'10',fieldId:null,valueId:null,value:null,search:null, sortBy:null });
       expect(speciesService.findAll).toHaveBeenCalled();
     });
   });

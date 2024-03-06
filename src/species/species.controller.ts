@@ -27,6 +27,7 @@ export class SpeciesController {
       valueId: query.valueId ? query.valueId : null,
       value: query.value ? query.value : null,
       search: query.search ? query.search : null,
+      sortBy: query.sortBy ? query.sortBy : null,
     }
 
     const species = await this.speciesService.findAll(paramFilter);

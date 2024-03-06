@@ -1,4 +1,9 @@
-import { IsNumberString, IsOptional, IsString } from 'class-validator';
+import { IsEnum, IsNumberString, IsOptional, IsString } from 'class-validator';
+
+enum SortBy {
+  Name = 'name',
+  CommonName = 'commonName',
+}
 
 export class ListSpeciesQueryDto {
   @IsNumberString()
@@ -22,4 +27,11 @@ export class ListSpeciesQueryDto {
   @IsString()
   @IsOptional()
   search?: string;
+
+  @IsString()
+  @IsOptional()
+  @IsEnum(SortBy, {
+    message: `sortBy must be a valid enum value: ${Object.values(SortBy).join(', ')}`,
+  })
+  sortBy?: string;
 }

@@ -92,13 +92,30 @@ export class SpeciesService {
       }
     }
     
+    // if there is any param sortBy
+    let order = [];
+    if(paramFilter.sortBy){
+      switch (paramFilter.sortBy) {
+        case 'name':
+          order = [['name', 'ASC']];
+          break;
+        case 'commonName':
+          order = [['commonName', 'ASC']];
+          break;
+        default:
+          order = [];
+          break;
+      }
+    }
+
     // using promise all for make code run concurrent/pararell
     const [data, total] = await Promise.all([
       this.speciesModel.findAll({
           limit: paramFilter.perPage, 
           offset,
           include: modelInclude,
-          where: where
+          where: where,
+          order: order
         }),
       this.speciesModel.count({
         include: modelInclude,

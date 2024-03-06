@@ -42,7 +42,9 @@ describe('FieldsServices', () => {
   describe('findAll()', () => {
     it('should return an array of fields', async () => {
       const fields = await service.findAll({fieldCategoryId:'1'});
+      const fields2 = await service.findAll({fieldCategoryId:null});
       expect(fields).toEqual(fieldsArray);
+      expect(fields2).toEqual(fieldsArray);
     });
   });
 });

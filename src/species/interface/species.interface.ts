@@ -25,4 +25,5 @@ export interface ParamFilter {
     valueId?: string,
     value?: string,
     search?: string,
+    sortBy?: string,
 }
