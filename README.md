@@ -115,9 +115,22 @@ $ docker run -p 3000:3000 metapals-app
 
 ## API Example 
 I put 1 of API Example for this Repo for get species by advance filter
+Request
 ```bash
 http://localhost:3000/v1/species?page=1&perPage=10&fieldId=1&valueId=2&search=a&sortBy=name
 
+Parameter
+page:1 (mandatory)
+perPage:10 (mandatory)
+fieldId:1 (mandatory)
+valueId:2 (mandatory if field Id is not 2)
+value:keira (mandatory if field Id is 2)
+search:a (Optional)
+sortBy:name (Optional)
+```
+
+Response :
+```bash
 {
     "page": "1",
     "perPage": "10",
