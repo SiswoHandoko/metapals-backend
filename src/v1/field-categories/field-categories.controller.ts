@@ -2,7 +2,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { FieldCategories } from './models/field_categories.model';
 import { FieldCategoriesServices } from './field-categories.service';
 
-@Controller('field-categories')
+@Controller('v1/field-categories')
 export class FieldCategoriesController {
   constructor(private readonly fieldCategoriesService: FieldCategoriesServices) {}
 

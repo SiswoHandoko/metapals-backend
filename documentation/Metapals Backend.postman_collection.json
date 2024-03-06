@@ -12,13 +12,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/species?page=1&perPage=10&fieldId=1&valueId=2&search=a&sortBy=name",
+					"raw": "http://localhost:3000/v1/species?page=1&perPage=10&fieldId=1&valueId=2&search=a&sortBy=name",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"v1",
 						"species"
 					],
 					"query": [
@@ -66,13 +67,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/field-categories",
+					"raw": "http://localhost:3000/v1/field-categories",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"v1",
 						"field-categories"
 					]
 				}
@@ -85,13 +87,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/fields?fieldCategoryId=2",
+					"raw": "http://localhost:3000/v1/fields?fieldCategoryId=2",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"v1",
 						"fields"
 					],
 					"query": [
@@ -110,13 +113,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/values?fieldId=4",
+					"raw": "http://localhost:3000/v1/values?fieldId=4",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
+						"v1",
 						"values"
 					],
 					"query": [

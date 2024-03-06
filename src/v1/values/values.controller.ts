@@ -3,7 +3,7 @@ import { ValueServices } from './values.service';
 import { ListFieldsQueryDto } from './dto/list-values.dto';
 import { ValuesData } from './interface/fields.interface';
 
-@Controller('values')
+@Controller('v1/values')
 export class ValuesController {
   constructor(private readonly valuesServices: ValueServices) {}
 

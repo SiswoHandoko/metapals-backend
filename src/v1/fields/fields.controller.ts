@@ -3,7 +3,7 @@ import { Fields } from './models/fields.model';
 import { FieldsServices } from './fields.service';
 import { ListFieldsQueryDto } from './dto/list-fields.dto';
 
-@Controller('fields')
+@Controller('v1/fields')
 export class FieldsController {
   constructor(private readonly fieldsServices: FieldsServices) {}
 

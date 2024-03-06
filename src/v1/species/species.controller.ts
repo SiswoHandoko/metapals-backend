@@ -6,7 +6,7 @@ import { ListSpeciesQueryDto } from './dto/list-species.dto';
 import { TransformedData } from './interface/species.interface';
 import { ThrottlerGuard } from '@nestjs/throttler';
 
-@Controller('species')
+@Controller('v1/species')
 export class SpeciesController {
   constructor(
     private readonly speciesService: SpeciesService,
