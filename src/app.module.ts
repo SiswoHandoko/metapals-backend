@@ -13,16 +13,29 @@ import { FamilyNames } from './values/models/family_names.model';
 import { NativeHabitats } from './values/models/native_habitats.model';
 import { PreferredClimateZones } from './values/models/preferred_climate_zones.model';
 import { SpeciesPreferredClimateZones } from './values/models/species_preferred_climate_zones.model';
-
+import { config } from 'dotenv';
+config();
 @Module({
   imports: [
     SequelizeModule.forRoot({
       dialect: 'postgres',
-      host: process.env.POSTGRE_HOST || 'localhost',
-      port: parseInt(process.env.POSTGRE_PORT) || 5432,
-      username: process.env.POSTGRE_USER || 'postgres',
-      password: process.env.POSTGRE_PASS || '',
-      database: process.env.POSTGRE_DB_NAME || 'metapals',
+      port: parseInt(process.env.POSTGRE_PORT_MASTER) || 5432,
+      replication: {
+        read: [
+          {
+            host: process.env.POSTGRE_HOST_SLAVE_0 || 'localhost',
+            username: process.env.POSTGRE_USER_SLAVE_0 || 'postgres',
+            password: process.env.POSTGRE_PASS_SLAVE_0 || '',
+            database: process.env.POSTGRE_DB_SLAVE_0 || 'metapals',
+          }
+        ],
+        write: {
+          host: process.env.POSTGRE_HOST_MASTER || 'localhost',
+          username: process.env.POSTGRE_USER_MASTER || 'postgres',
+          password: process.env.POSTGRE_PASS_MASTER || '',
+          database: process.env.POSTGRE_DB_MASTER || 'metapals',
+        },
+      },
       models: [Species,FieldCategories,Fields,FamilyNames,NativeHabitats,PreferredClimateZones,SpeciesPreferredClimateZones],
     }),
     SpeciesModule,
